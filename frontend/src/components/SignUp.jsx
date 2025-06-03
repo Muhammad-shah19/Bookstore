@@ -1,14 +1,40 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form"
+import axios from 'axios'
+import toast from 'react-hot-toast'
+import { useAuth } from '../context/AuthContext'
 const SignUp = () => {
+  const [auth, setAuth] = useAuth();
+   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm()
 
-  const onSubmit = (data) => console.log(data)
+  const onSubmit =async (data) => {
+    const userinfo = {
+      fullname: data.name,
+      email: data.email,
+      password: data.password,
+    }
+    await axios.post("http://localhost:5000/user/signup",userinfo).then((res)=>{
+      if(res.data){
+        toast.success("user created");
+         setAuth(res.data.user);
+        navigate("/", {replace:true});
+        console.log(res.data);
+      }
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+    }).catch((err)=>{
+      if(err.response){
+       toast.error("user exist already", err.response.data.message);
+      }
+    }
+    )
+  }
+  
 
   return <>
   <div className="flex justify-center items-center h-screen">

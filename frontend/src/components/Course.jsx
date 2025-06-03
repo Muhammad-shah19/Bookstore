@@ -1,9 +1,22 @@
-import React from 'react'
-import list from "../../public/list.json"
+import React, { useEffect, useState } from 'react'
 import Card from './Card'
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 const Course = () => {
-  const ListItemPaid = list.filter((item)=>item.category === "Paid");  
+  const [book,setBook] = useState([]);
+  useEffect(()=>{
+    const getBook = async ()=>{
+      try {
+        const res = await axios.get("http://localhost:5000/book");
+        console.log(res.data);
+        setBook(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getBook();
+  },[])
+  const ListItemPaid = book.filter((item)=>item.category === "Paid");  
   return (
     <>
       <div className='mt-28 text-center justify-center z-10 max-w-screen-2xl container mx-auto md:px-40 px-4'>

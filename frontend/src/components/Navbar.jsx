@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
-import Login from './Login';
-
+import Logout from './Logout';
+import { useAuth } from '../context/AuthContext';
 const Navbar = () => {
+
+  const [auth] = useAuth();
+
    const navitems = [
     {name: "Home", path: "/"},
     {name: "Courses", path: "/course"},
@@ -98,9 +101,17 @@ const Navbar = () => {
 
 </label>
   </div>
-  <div>
+
+  {
+    auth ? (
+      <Logout/>
+    ) : (
+      <div>
     <Link className="bg-black text-white  p-2 rounded-md hover:bg-slate-800 cursor-pointer" to="/login">Login</Link>
   </div>
+    )
+  
+  }
   </div>
   
  

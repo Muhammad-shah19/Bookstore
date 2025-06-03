@@ -1,6 +1,6 @@
 import React from 'react'
 import {useForm} from "react-hook-form"
-import { Link } from 'react-router-dom';
+import { Link, Links } from 'react-router-dom';
 import Navbar from './Navbar'
 const Contact = () => {
     const {
@@ -8,7 +8,8 @@ const Contact = () => {
         handleSubmit,
         formState: { errors },
       } = useForm();
-      const onSubmit = (data) => console.log(data)
+      const onSubmit = (data) => console.log(data);
+      
   return (
         <>
         <Navbar/>
@@ -38,9 +39,10 @@ const Contact = () => {
 
       <div className='flex justify-between items-center '>
           <div>
-          <button type='submit' className='bg-pink-500 hover:bg-pink-700 duration-200 p-1 mt-5 text-white text-bold rounded-sm cursor-pointer w-20 '>Sumbit</button>
+          <Link to="/" type='submit' className='bg-pink-500 hover:bg-pink-700 duration-200 p-1 mt-5 text-white text-bold rounded-sm cursor-pointer w-20 '>Sumbit</Link>
+             
           </div>
-         
+    
       </div>
     </div>
     </form>
